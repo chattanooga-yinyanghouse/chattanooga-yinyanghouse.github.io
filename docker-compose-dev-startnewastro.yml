@@ -1,0 +1,20 @@
+services:
+  webfront:
+    build:
+      context: .
+      args:
+        NODE_IMAGE: ${NODE_IMAGE}
+      dockerfile: ./Dockerfile.dev
+    restart: unless-stopped
+    env_file:
+      - ./dev-api.env
+    container_name: ${NODE_CONTAINER_NAME}
+    volumes:
+      - ./NODE-Dev-App:/app
+    command: ["bash"]
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    # then docker exec -it yyh-dev-api-front /bin/bash
+    # initalize project
+    # setup astro with tailwindcss and shadcdn
+    

@@ -7,6 +7,7 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://chattanooga-yinyanghouse.github.io',
   integrations: [react(), tailwind({
     applyBaseStyles: false,
   })]

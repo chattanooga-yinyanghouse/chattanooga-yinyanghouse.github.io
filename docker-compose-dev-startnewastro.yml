@@ -10,7 +10,7 @@ services:
       - ./dev-api.env
     container_name: ${NODE_CONTAINER_NAME}
     volumes:
-      - ./NODE-Dev-App:/app
+      - ./NODE-APP:/app
     command: ["bash"]
     stdin_open: true # docker run -i
     tty: true        # docker run -t

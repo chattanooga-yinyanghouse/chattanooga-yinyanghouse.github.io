@@ -18,7 +18,7 @@ jobs:
       - name: Install, build, and upload your site
         uses: withastro/action@v3
         with:
-          path: ./NODE-Dev-App
+          path: ./NODE-APP
           package-manager: npm
 
   deploy:

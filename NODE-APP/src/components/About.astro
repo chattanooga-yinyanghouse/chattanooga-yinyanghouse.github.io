@@ -1,0 +1,123 @@
+---
+// Import your images and define staff data
+import chatttown from '@assets/chattanooga-downtown-background.webp';
+import abbyimg from '@assets/abby-massage-therapist-owner-yyhllc-chattanooga.png';
+import xiaoimg from '@assets/xiao-rice-chattanooga-acupuncturist-herbalist.png';
+import christanneimg from '@assets/christanne-chattanooga-acupuncturist.png';
+import loriimg from '@assets/lori-yoga-chattannoga.png';
+import amandaimg from '@assets/amanda-osborne-massage-therapist-chattanooga.png';
+import johnimg from '@assets/john-physical-therapist-trainer-yyhllc-chattanooga.png';
+
+const staffMembers = [
+  {
+    id: 'abby',
+    name: 'Abby Stewart, LMT, MLD-C',
+    title: 'Massage Therapist / Owner',
+    img: abbyimg.src,
+    description:  'Abby is the owner of the Yin Yang House Chattanooga affiliate and provides massage therapy and manual lymphatic drainage services as a licensed massage therapist. Abby obtained her Bachelor\'s degree in Exercise Science from the University of South Carolina in 2013 and graduated from the Chattanooga Massage Institute in 2016. In 2017, she became certified in the Vodder technique of manual lymphatic drainage by the Academy of Lymphatic Studies. Abby\'s specialty in lymphatic drainage enables her to work with a wide range of conditions, including lymphedema, post-surgical swelling & pain, and immune system support. She has a passion for massage therapy and utilizes various techniques, including both gentle and deeper methods to ease pain and promote overall health & well-being.'
+  },
+  {
+    id: 'xiao',
+    name: 'Xiao Rice, DACM, Dipl. O.M., L.Ac.',
+    title: 'Acupuncturist',
+    img: xiaoimg.src,
+    description:  'Xiao grew up in China as the daughter of an acupuncturist, and is fluent in both English and Chinese. She went on to complete her Doctorate in Acupuncture & Chinese Medicine from Pacific College of Health & Sciences in 2022. Xiao specializes in pain management, oncology supportive care, vertigo, headaches, neuropathy, and mental health support, and also combines sound healing with acupuncture in unique, specialized sessions. She is dedicated to empowering her patients to reconnect their body, mind, and spirits and improve their quality of life through the wisdom of Chinese Medicine.'
+  },
+  {
+    id: 'christanne',
+    name: 'Christanne Spell, MSAOM, Dipl.Ac., L.Ac.',
+    title: 'Acupuncturist',
+    img: christanneimg.src,
+    description: 'Christanne is a Louisiana native who obtained her Bachelor\'s degree from Louisiana State University in 2004. She went on to complete the Master’s program in Traditional Chinese Medicine at Texas Health & Sciences University in Austin, TX and graduated in 2015, becoming a licensed acupuncturist and Chinese herbalist. To date, she has successfully managed thousands of cases ranging from neurological disorders, chronic pain and illnesses, to hormonal imbalances and infertility. Her interests include foraging, cooking, and helping fellow rock climbers with pain & injuries.'
+  },
+  {
+    id: 'lori',
+    name: 'Lori McKenzie',
+    title: 'Yoga Instructor',
+    img: loriimg.src,
+    description: 'Lori began practicing yoga over 20 years ago and was instantly drawn to the physical and mental challenges of yoga, bringing a sense of reward and well-being after each class. In 2018, Lori began her yoga teacher training with Esak Garcia and earned her 26 & 2 and e84 intermediate teaching certifications. Prior to becoming a yoga instructor, Lori taught Marine Science in Long Beach, California. Teaching is another passion and she is fortunate to have the opportunity to bring together her love of yoga and the art of teaching.'
+  },
+  {
+    id: 'amanda',
+    name: 'Amanda Osborne, LMT',
+    title: 'Massage Therapist',
+    img: amandaimg.src,
+    description: 'Amanda is a licensed massage therapist and Reiki master. She obtained her massage diploma from Chattanooga State in 2012 and continued her studies of Reiki with her mentor to reach Reiki Master level in 2016. She provides custom therapeutic massages tailored to the specific needs of each individual client. Amanda will often utilize helpful tools and techniques she has used over her years of experience such as neuromuscular therapy, modern cupping, and sports massage.'
+  },
+  {
+    id: 'john',
+    name: 'John Waller, PT, DPT',
+    title: 'Physical Therapist',
+    img: johnimg.src,
+    description: 'John is a licensed Physical Therapist who earned a Doctorate in Physical Therapy from UTC in 2017, and a B.S. in Exercise Science from Berry College in 2014. As our movement and exercise specialist, John prescribes individualized exercise & wellness plans for those seeking relief from musculoskeletal pain, injury prevention, postural imbalances, limited range of motion/mobility, poor balance, or for general strength and fitness deficits. He gives his patients the tools and knowledge they need to complete specific exercises at home without expensive equipment or a gym. In 2022, he became certified in Electro-Lymphatic Therapy; this technique was developed to stimulate lymphatic flow at superficial and deep levels within the body.'
+  }
+];
+---
+
+<section id="aboutus" class="py-16 relative text-gray-900 dark:text-gray-100">
+  <!-- Background Image -->
+  <img
+    src={chatttown.src}
+    alt="Chattanooga Downtown Background"
+    class="absolute inset-0 w-full h-full object-cover opacity-20"
+  />
+  <div class="absolute inset-0 bg-gray-100 dark:bg-gray-800 opacity-20"></div>
+
+  <!-- Content Wrapper -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- About Us Section -->
+    <h2 class="text-3xl font-bold mb-4">About Us</h2>
+    <p>
+      Yin Yang House Chattanooga LLC, is an affiliated clinic of the
+      <a href="https://yinyanghouse.com/">Yin Yang House</a> and was originally
+      started by <a href="https://yyhmsg.net/">Chad J. Dupuis</a>, now owned and
+      operated by Abby Stewart, LMT.
+    </p>
+    <p class="mt-2">
+      We have been providing acupuncture, massage and other wellness services to
+      the Chattanooga area for over a decade. We offer acupuncture and Chinese
+      Medicine services, massage therapy, lymphatic drainage and a host of other
+      wellness services to help you on your path to a vibrant life.
+    </p>
+
+    <!-- Our Staff Section -->
+    <h3 class="text-2xl font-bold mb-4 mt-12">Our Staff</h3>
+    <div x-data="{ openAccordion: null }" class="accordion">
+      {staffMembers.map((staff, index) => (
+        <div class="accordion-item mb-4" data-index={index}>
+          <button
+            @click="openAccordion = openAccordion === $el.parentElement.dataset.index ? null : $el.parentElement.dataset.index"
+            :aria-expanded="openAccordion === $el.parentElement.dataset.index"
+            class="flex justify-between w-full py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded"
+          >
+            <div class="flex items-center">
+              <img
+                src={staff.img}
+                alt={staff.name}
+                class="w-12 h-12 rounded-full mr-4"
+              />
+              <div class="flex-grow">
+                <p class="font-bold">{staff.name}</p>
+                <p>{staff.title}</p>
+              </div>
+            </div>
+            <span class="toggle-icon text-2xl font-bold">
+              <span x-show="openAccordion !== $el.parentElement.dataset.index" x-cloak>+</span>
+              <span x-show="openAccordion === $el.parentElement.dataset.index" x-cloak>-</span>
+            </span>
+          </button>
+          <div
+            x-show="openAccordion === $el.parentElement.dataset.index"
+            x-cloak
+            class="accordion-collapse overflow-hidden transition-all duration-300"
+            :style="openAccordion === $el.parentElement.dataset.index ? 'max-height: 500px;' : 'max-height: 0;'"
+          >
+            <p class="py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded">
+              {staff.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

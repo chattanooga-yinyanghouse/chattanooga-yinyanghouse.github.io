@@ -1,26 +1,131 @@
 ---
 import '@styles';
+import yyhLogo from '@assets/yyh-chatt-clinic-logo.png';
+const { title, fullWidth = false } = Astro.props;
+
+// Define navigation items as a reusable constant
+const navItems = [
+    { href: '/#aboutus', label: 'About Us' },
+    { href: '/#services', label: 'Services' },
+    { href: '/#schedule', label: 'Appointments' },
+    { href: '/news-events/', label: 'News / Events' },
+	{ href: '/#contactus', label: 'Contact'},
+];
 ---
 
 <!doctype html>
-<html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<slot />
-	</body>
+<html
+    lang="en"
+    x-data="{
+        darkMode: localStorage.getItem('darkMode') !== null
+            ? JSON.parse(localStorage.getItem('darkMode'))
+            : window.matchMedia('(prefers-color-scheme: dark)').matches,
+        mobileMenuOpen: false,
+        toggleDarkMode() {
+            this.darkMode = !this.darkMode;
+            localStorage.setItem('darkMode', this.darkMode);
+            document.documentElement.classList.toggle('dark', this.darkMode);
+        }
+    }"
+    x-init="document.documentElement.classList.toggle('dark', darkMode)"
+>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title || 'Yin Yang House Chattanooga - Acupuncture, Massage and Wellness Center'}</title>
+    </head>
+    <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100">
+        <header class="fixed top-0 left-0 w-full bg-[#8a712b] dark:bg-[#8a712b] shadow-md z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+                <!-- Logo -->
+				<a href="/" class="flex items-center space-x-2">
+					<div
+						class="p-2 rounded-full bg-white dark:bg-gray-700"
+					>
+						<img
+							src={yyhLogo.src}
+							alt="Yin Yang House Logo"
+							class="h-8 w-auto"
+						/>
+					</div>
+					<span class="text-xl font-bold text-white"></span>
+				</a>
+				
+				
+				<!-- Navigation Links -->
+                <nav class="hidden md:flex space-x-4">
+                    {navItems.map(item => (
+                        <a href={item.href} class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm">
+                            {item.label}
+                        </a>
+                    ))}
+                </nav>
+
+                <!-- Dark Mode and Mobile Menu Toggle -->
+                <div class="flex items-center space-x-4">
+                    <!-- Dark Mode Toggle -->
+                    <button
+                        @click="toggleDarkMode"
+                        class="relative w-10 h-10 rounded-full bg-[#a48c3c] flex items-center justify-center cursor-pointer"
+                        aria-label="Toggle Dark Mode"
+                    >
+                        <div
+                            class="w-6 h-6 rounded-full bg-white dark:bg-gray-700 transition-colors"
+                        ></div>
+                    </button>
+
+                    <!-- Mobile Menu Toggle -->
+                    <button
+                        @click="mobileMenuOpen = !mobileMenuOpen"
+                        class="relative w-10 h-10 rounded-full bg-[#a48c3c] flex items-center justify-center cursor-pointer md:hidden"
+                        aria-label="Toggle Mobile Menu"
+                    >
+                        <div class="relative w-6 h-6">
+                            <span
+                                class="absolute top-0 left-0 w-6 h-0.5 bg-white transition-transform transform"
+                                :class="mobileMenuOpen ? 'rotate-45 translate-y-2.5' : ''"
+                            ></span>
+                            <span
+                                class="absolute top-2.5 left-0 w-6 h-0.5 bg-white transition-opacity"
+                                :class="mobileMenuOpen ? 'opacity-0' : ''"
+                            ></span>
+                            <span
+                                class="absolute top-5 left-0 w-6 h-0.5 bg-white transition-transform transform"
+                                :class="mobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''"
+                            ></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div
+                x-show="mobileMenuOpen"
+                class="md:hidden bg-[#8a712b] dark:bg-[#8a712b] text-white"
+                @click.away="mobileMenuOpen = false"
+            >
+                {navItems.map(item => (
+                    <a href={item.href} class="block px-4 py-2 hover:bg-[#9fcf67] dark:hover:bg-[#9fcf67]" @click="mobileMenuOpen = false">
+                        {item.label}
+                    </a>
+                ))}
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class={`${fullWidth ? 'mt-0' : 'pt-20'}`}>
+            <slot />
+        </main>
+    </body>
 </html>
 
 <style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
+    html,
+    body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
 </style>

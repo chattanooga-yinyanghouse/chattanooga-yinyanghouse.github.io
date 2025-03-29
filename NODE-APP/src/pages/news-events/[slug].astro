@@ -1,0 +1,48 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '@layouts/Layout.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+
+// Get the slug from URL params
+const { slug } = Astro.params;
+
+// Fetch all entries in the newsEvents collection
+const items = await getCollection('newsEvents');
+
+// Find the entry matching the slug
+const entry = items.find((item) => item.data.slug === slug);
+
+if (!entry) {
+  throw new Error(`Page not found: ${slug}`);
+}
+
+// Get the rendered HTML safely
+const html = entry.rendered?.html || '<p>Content not available</p>';
+
+// Define and export the getStaticPaths function
+export async function getStaticPaths() {
+  const items = await getCollection('newsEvents');
+  return items.map((item) => ({
+    params: { slug: item.data.slug }, // Generate paths based on the slug field
+  }));
+}
+---
+
+<Layout title={entry.data.title}>
+  <div class="prose dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+    <Breadcrumb currentPage={entry.data.parent ?? 'news-events'} />
+    <article>
+      <h1 class="text-3xl font-bold">{entry.data.title}</h1>
+      <p class="text-gray-500">
+        Date: {new Date(entry.data.date).toLocaleDateString()} | By: {entry.data.author}
+      </p>
+      {entry.data.coverimg && (
+        <img src={entry.data.coverimg.src} alt={entry.data.coveralt ?? ''} class="my-4" />
+      )}
+      <section>
+        <!-- Safely render Markdown content -->
+        <div class="my-markdown-content" set:html={entry.rendered?.html || ''}></div>
+      </section>
+    </article>
+  </div>
+</Layout>

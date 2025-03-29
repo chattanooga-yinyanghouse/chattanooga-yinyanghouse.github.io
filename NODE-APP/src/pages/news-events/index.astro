@@ -1,22 +1,43 @@
 ---
-import type { ImageMetadata } from 'astro'
-interface NewsItem {
-    frontmatter: {
-        title: string,
-        date: Date,
-        author: string,
-        coverimg: ImageMetadata,
-        coveralt: string,
-    };
-    url: string;
-}
-const items: NewsItem[] = Object.values(import.meta.glob<NewsItem>('./*.md', {eager: true})).sort((a: NewsItem, b: NewsItem) => {
-  const dateA = new Date(b.frontmatter.date);
-  const dateB = new Date(a.frontmatter.date);
-  return dateA.getTime() - dateB.getTime();
+import Layout from '@layouts/Layout.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+import type { ImageMetadata } from 'astro';
+import type { CollectionEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+// interface NewsItem {
+//     frontmatter: {
+//         title: string,
+//         date: Date,
+//         author: string,
+//         coverimg: ImageMetadata,
+//         coveralt: string,
+//         parent: string,
+//     };
+//     url: string;
+// }
+const items: CollectionEntry<'newsEvents'>[] = await getCollection('newsEvents');
+const sortedItems = items.sort((a, b) => {
+  const dateA = new Date(a.data.date).getTime();
+  const dateB = new Date(b.data.date).getTime();
+  return dateB - dateA; // Sort descending by date
 });
+
+// const items: NewsItem[] = Object.values(import.meta.glob<NewsItem>('./*.md', {eager: true})).sort((a: NewsItem, b: NewsItem) => {
+//   const dateA = new Date(b.frontmatter.date);
+//   const dateB = new Date(a.frontmatter.date);
+//   return dateA.getTime() - dateB.getTime();
+// });
 ---
-<h1>Chattanooga Center News and Events</h1>
-<ul>
-    {items.map(i => <li><a href={i.url}>{i.frontmatter.title}</a> :: Date:  {i.frontmatter.date}</li>)}
-</ul>
+<Layout title="Chattanooga Center News and Events">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
+        <Breadcrumb currentPage="news-events" />
+        <h1 class="text-3xl font-bold">Chattanooga Center News and Events</h1>
+        <ul class="space-y-2">
+            {items.map(i => (
+                <li>
+                    <a href={`/news-events/${i.data.slug}`}>{i.data.title}</a> :: Date: {i.data.date}
+                </li>
+            ))}
+        </ul>
+    </div>
+</Layout>

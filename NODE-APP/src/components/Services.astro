@@ -1,0 +1,65 @@
+---
+const services = [
+  { 
+    title: 'Acupuncture', 
+    description: `<p>Acupuncture is used worldwide both as a primary and complementary form of medical treatment. The list of conditions that acupuncture may help is essentially limitless. The most common conditions are:</p><ul><li class="list-disc">allergies/asthma</li><li class="list-disc">headaches<li><li class="list-disc">anxiety/depression</li><li class="list-disc">fertility</li><li class="list-disc">neurological conditions</li><li class="list-disc">pain anywhere in the body</li></ul>`
+},
+  { 
+    title: 'Massage Therapy', 
+    description: `<p>Massage therapy has long been appreciated for it's ability to remove stress and tension within the body which contributes to disease and pain. The variety of techniques within the field of massage therapy have much to offer both in the way of assisting in the healing and prevention of disease as well as health maintenance.</p>` 
+},
+  { 
+    title: 'Lymphatic Drainage Therapies', 
+    description: `<ul class="m-3"><li class="list-disc">Manual Lymphatic Drainage (Vodder method) is a gentle and effective hands-on technique to encourage excess fluid, metabolic waste, allergens, bacteria/viruses, etc to exit the body through the lymphatic system, while optimizing the immune system. Congestion of the lymph fluid in the body can happen due to trauma (physical and/or emotional), surgery, cancer treatments, chronic disease, infections, poor lifestyle habits, genetic factors, and environmental toxins.</li><li class="list-disc">Assisted-Lymphatic Therapy (also called Electro-Lymphatic Therapy) uses the principles of the Vodder method to more deeply stimulate the lymphatics by means of an instrument that is glided along the skin, transmitting electrical, light, and vibrational frequencies to thin the lymph fluid and break-up congested areas. This makes it easier for the lymphatic vessels to absorb and eliminate from the body.</li></ul>` 
+},
+{
+    title: 'Physical Therapy Wellness Services',
+    description: `<p>Working with a physical therapist can improve your overall strength, balance, and mobility. Therapeutic exercises are prescribed to restore musculoskeletal function, improve posture, decrease pain with movement, and improve quality of life. Manual therapies may be included when appropriate, and lifestyle considerations are discussed to ensure a holistic approach to your well-being. Providing cash-based therapy allows the PT to always have a one-on-one session with the patient and no referral is needed. This service is beneficial for those who have: pain with movement, impaired balance, decreased joint mobility, overall weakness, decreased stamina, and/or those seeking a customized exercise plan.</p>`
+},
+{
+    title: 'Yoga Classes',
+    description: `<ul><li class="list-disc">Science of Stretching (60 min): A mat-based class focused on deep stretching, incorporating targeted mobility training to help students with stiff backs, hips, and hamstrings open up space within the body. This class combines yoga with modern exercise physiology research to help students improve posture, reduce pain, and regain range of motion.</li></ul><p>Sign up here: <a href="https://yogabody.bio/Lori">https://yogabody.bio/Lori</a></p>`
+},
+{ 
+    title: 'Herbs / Wellness Services',
+    description: `<p>We also offer a rotating group of other wellness services that at times include Yoga Classes, Tai Chi classes, Meditation, Exercise / Training Classes, Physical Therapy, whatever we find that benefits our patients. We offer a large range of Chinese Herbal Medicine and natural health products available through <a href="https://store.yinyanghouse.com/">our online store</a>.</p>`
+},
+];
+---
+
+<section id="services" class="py-16">
+    <h2 class="text-3xl font-bold mb-4">Services</h2>
+    <div x-data="{ openAccordion: null }" class="accordion">
+      {services.map((service, index) => (
+        <div class="accordion-item mb-4" data-index={index}>
+          <button
+            @click="openAccordion = openAccordion === $el.parentElement.dataset.index ? null : $el.parentElement.dataset.index"
+            :aria-expanded="openAccordion === $el.parentElement.dataset.index"
+            class="flex justify-between w-full py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded"
+          >
+            <div class="flex items-center">
+              <div class="flex-grow">
+                <p class="font-bold">{service.title}</p>
+              </div>
+            </div>
+            <span class="toggle-icon text-2xl font-bold">
+              <span x-show="openAccordion !== $el.parentElement.dataset.index" x-cloak>+</span>
+              <span x-show="openAccordion === $el.parentElement.dataset.index" x-cloak>-</span>
+            </span>
+          </button>
+          <div
+            x-show="openAccordion === $el.parentElement.dataset.index"
+            x-cloak
+            class="accordion-collapse overflow-hidden transition-all duration-300"
+            :style="openAccordion === $el.parentElement.dataset.index ? 'max-height: 500px;' : 'max-height: 0;'"
+          >
+            <div class="py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded">
+              <!-- Inject raw HTML here -->
+              <span set:html={service.description}></span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  

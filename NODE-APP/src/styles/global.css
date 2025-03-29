@@ -1,2 +1,108 @@
 @import "tailwindcss";
+@plugin '@tailwindcss/typography';
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* Fix menu item styles */
+
+html { 
+    scroll-behavior: smooth;
+}
+
+nav a {
+    color: white; /* Explicitly set text color to white */
+    background-color: inherit; /* No background color changes */
+    text-decoration: none; /* Remove underline from menu items */
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: #b59d4d; /* Hover background for light mode */
+}
+
+body.dark nav a:hover {
+    background-color: #9b823c; /* Hover background for dark mode */
+}
+
+/* Adjust breadcrumb link styles */
+.breadcrumb-link {
+    color: inherit; /* Use inherited text color */
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 2px;
+    background-color: transparent; /* Ensure no background color */
+    transition: text-decoration-color 0.3s ease, background-color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+    text-decoration-color: #319795; /* Teal underline in light mode */
+    background-color: transparent; /* Ensure no hover background */
+}
+
+body.dark .breadcrumb-link:hover {
+    text-decoration-color: #e2e8f0; /* Light gray underline in dark mode */
+    background-color: transparent; /* Ensure no hover background */
+}
+
+/* Adjust link styles for main content */
+main a {
+    text-decoration: underline;
+    text-decoration-style: dotted;
+    text-underline-offset: 2px; /* Add some spacing between text and underline */
+    transition: text-decoration-color 0.3s ease;
+}
+
+main a:hover {
+    text-decoration-color: #319795; /* Teal underline in light mode */
+}
+
+body.dark main a:hover {
+    text-decoration-color: #e2e8f0; /* Light gray underline in dark mode */
+}
+
+main a:focus {
+    outline: 2px dotted #319795; /* Focus outline for accessibility */
+}
+
+body.dark main a:focus {
+    outline: 2px dotted #e2e8f0; /* Focus outline for accessibility in dark mode */
+}
+/* Ensure Alpine's x-cloak works */
+[x-cloak] {
+    display: none !important;
+}
+/* Contextual styling for the accordion container and items */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+.accordion-item {
+    width: 100%;
+    max-width: 800px;
+    border-radius: 5px;
+}
+/* Do not use details/summary-specific styles unless needed */
+/* Accordion collapse styling */
+.accordion-collapse {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #5cc4b5;
+    color: #fff;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    display: none; /* Ensure the element is hidden when collapsed */
+}
+
+.accordion-collapse[style*="max-height: 500px;"] {
+    display: block; /* Show the element when expanded */
+    opacity: 1;
+}
+/* Dark mode styles */
+body.dark .accordion-collapse {
+    background-color: #3b8c82;
+    color: #fff;
+}

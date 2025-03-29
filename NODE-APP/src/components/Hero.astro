@@ -1,0 +1,11 @@
+---
+const { fullWidth = false } = Astro.props;
+---
+
+<section id="welcome" class={`py-16 bg-[#5cc4b5] text-white ${fullWidth ? 'w-screen px-0' : 'container mx-auto px-4 sm:px-6 lg:px-8'}`}>
+    <div class="text-center mt-16">
+        <h1 class="text-4xl font-bold mb-4">Welcome</h1>
+        <h2 class="text-3xl font-light mb-4">to the Yin Yang House</h2> 
+        <h3 class="text-5xl font-bold mb-4">Chattanooga Clinic</h3>
+    </div>
+</section>

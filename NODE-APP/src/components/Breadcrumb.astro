@@ -1,0 +1,40 @@
+---
+import yyhLogo from '@assets/yyh-chatt-clinic-logo.png';
+
+const { currentPage, currentTitle = Astro.props.title } = Astro.props;
+const { parentPage = Astro.props.parent } = Astro.props;
+
+---
+
+<nav class="flex items-center space-x-2 py-4 px-4 bg-gray-100 dark:bg-gray-800">
+    <!-- Logo -->
+    <a href="/" class="breadcrumb-link flex items-center space-x-2">
+        <img src={yyhLogo.src} alt="Yin Yang House Logo" class="h-6 w-auto" />
+        <span class="text-gray-800 dark:text-gray-100 font-bold">Clinic</span>
+    </a>
+
+    <!-- Arrow -->
+    <span class="text-gray-600 dark:text-gray-400">→</span>
+
+<!-- Parent Page -->
+    {parentPage && (
+        <a href="{`${parentPage}`}" class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline">
+        {parentPage.replace('-', ' ')}
+    </a>
+    <!-- Arrow -->
+    <span class="text-gray-600 dark:text-gray-400">→</span>
+    )}
+
+    <!-- Current Page -->
+    <a href={`/${currentPage}`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline">
+        {currentPage.replace('-', ' ')}
+    </a>
+
+    <!-- Optional Title -->
+    {currentTitle && (
+        <>
+            <span class="text-gray-600 dark:text-gray-400">→</span>
+            <span class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold">{currentTitle}</span>
+        </>
+    )}
+</nav>

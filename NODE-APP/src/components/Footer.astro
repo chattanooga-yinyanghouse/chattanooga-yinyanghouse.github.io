@@ -1,0 +1,48 @@
+---
+const { fullWidth = false } = Astro.props;
+import bluesky from '@assets/bluesky-logo.webp';
+import github from '@assets/github-logo.webp';
+import linkedin from '@assets/linkedin-logo.webp';
+---
+
+<section id="footer">
+<footer class="bg-[#8a712b] dark:bg-[#8a712b] text-white py-12 px-12 md:px-24">
+  <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+    <div class="flex-1 mb-4 md:mb-0">
+      <p class="text-sm">&copy; {new Date().getFullYear()} Chad J. Dupuis<br />Yin Yang House<br />Yin Yang House Chattanooga, LLC<br />All rights reserved.</p>
+      <p class="text-sm">Website Design and Management by the <a href="https://yyhmsg.net" class="text-white hover:text-gray-300">Yin Yang House Media Services Group</a></p>
+    </div>
+    <div class="flex-1 mb-4 md:mb-0">
+      <ul class="flex space-x-4 justify-center">
+<li>
+  <a href="https://www.linkedin.com/company/yinyanghouse/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300">
+    <img 
+        src={linkedin.src} 
+        alt="linkedin"
+        class="h-10"
+    >
+  </a>
+</li>
+<li>
+  <a href="https://github.com/yinyanghouse/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300">
+    <img 
+        src={github.src} 
+        alt="github"
+        class="h-10"
+    >
+  </a>
+</li>
+<li>
+  <a href="https://bsky.app/profile/yinyanghouse.bsky.social" target="_blank" rel="noopener noreferrer" class="text-white hover:text-gray-300">
+    <img 
+        src={bluesky.src} 
+        alt="bluesky"
+        class="h-10"
+    >
+  </a>
+</li>
+    </ul>
+    </div>
+   </div>
+</footer> 
+</section>

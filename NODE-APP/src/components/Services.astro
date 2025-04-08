@@ -53,8 +53,8 @@ const services = [
             class="accordion-collapse overflow-hidden transition-all duration-300"
             :style="openAccordion === $el.parentElement.dataset.index ? 'max-height: 500px;' : 'max-height: 0;'"
           >
-            <div class="py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded">
-              <!-- Inject raw HTML here -->
+            <!-- <div class="py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded"> -->
+            <div class="py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded overflow-y-auto h-64 md:h-auto">
               <span set:html={service.description}></span>
             </div>
           </div>

@@ -32,7 +32,7 @@ const staffMembers = [
   },
   {
     id: 'lori',
-    name: 'Lori McKenzie',
+    name: 'Lori Perkins',
     title: 'Yoga Instructor',
     img: loriimg.src,
     description: 'Lori began practicing yoga over 20 years ago and was instantly drawn to the physical and mental challenges of yoga, bringing a sense of reward and well-being after each class. In 2018, Lori began her yoga teacher training with Esak Garcia and earned her 26 & 2 and e84 intermediate teaching certifications. Prior to becoming a yoga instructor, Lori taught Marine Science in Long Beach, California. Teaching is another passion and she is fortunate to have the opportunity to bring together her love of yoga and the art of teaching.'
@@ -112,7 +112,7 @@ const staffMembers = [
             class="accordion-collapse overflow-hidden transition-all duration-300"
             :style="openAccordion === $el.parentElement.dataset.index ? 'max-height: 500px;' : 'max-height: 0;'"
           >
-            <p class="py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded">
+            <p class="py-4 px-6 bg-[#5cc4b5] dark:bg-[#3b8c82] text-white rounded overflow-y-auto h-64 md:h-auto">
               {staff.description}
             </p>
           </div>

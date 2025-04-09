@@ -19,30 +19,154 @@ if (!entry) {
 // Get the rendered HTML safely
 const html = entry.rendered?.html || '<p>Content not available</p>';
 
+// Get the site URL for absolute URLs in meta tags
+const siteUrl = Astro.site || 'https://chattanooga.yinyanghouse.com';
+const currentUrl = new URL(Astro.request.url).href;
+
+// Prepare SEO and social sharing metadata
+const pageTitle = entry.data.title;
+const pageDescription = entry.data.description || `${entry.data.title} - Yin Yang House Chattanooga`;
+const pageImage = entry.data.ogImage || entry.data.coverimage || '/images/yin-yang-house-default.jpg';
+const pageImageUrl = new URL(pageImage, siteUrl).toString();
+
+// Social-specific metadata with fallbacks
+const socialTitle = entry.data.socialTitle || pageTitle;
+const socialDescription = entry.data.socialDescription || pageDescription;
+// Fix: Handle keywords properly to avoid type errors
+const keywords = Array.isArray(entry.data.keywords) ? entry.data.keywords : ['wellness', 'health', 'chattanooga', 'yin yang house'];
+
+// Article publish date
+const publishDate = new Date(entry.data.date).toISOString();
+const formattedDate = new Date(entry.data.date).toLocaleDateString('en-US', { 
+  year: 'numeric', 
+  month: 'long', 
+  day: 'numeric' 
+});
+
 // Define and export the getStaticPaths function
 export async function getStaticPaths() {
   const items = await getCollection('newsEvents');
   return items.map((item) => ({
-    params: { slug: item.data.slug }, // Generate paths based on the slug field
+    params: { slug: item.data.slug }, 
   }));
 }
+
+// Pass all the metadata to the Layout component
+const seoMeta = {
+  title: pageTitle,
+  description: pageDescription,
+  image: pageImageUrl,
+  article: true,
+  publishDate,
+  keywords,
+  ogTitle: socialTitle,
+  ogDescription: socialDescription
+};
 ---
 
-<Layout title={entry.data.title}>
+<Layout title={pageTitle} seo={seoMeta}>
   <div class="prose dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
     <Breadcrumb currentPage={entry.data.parent ?? 'news-events'} />
     <article>
-      <h1 class="text-3xl font-bold">{entry.data.title}</h1>
-      <p class="text-gray-500">
-        Date: {new Date(entry.data.date).toLocaleDateString()} | By: {entry.data.author}
-      </p>
-      {entry.data.coverimg && (
-        <img src={entry.data.coverimg.src} alt={entry.data.coveralt ?? ''} class="my-4" />
+      <!-- Responsive header section: stacked on mobile, side-by-side on desktop -->
+      <div class="flex flex-col md:flex-row md:items-start md:justify-between md:gap-8">
+        <!-- Title and date section -->
+        <div class="flex-1">
+          <h1 class="text-3xl font-bold">{entry.data.title}</h1>
+          <p class="text-gray-500 mt-2">
+            Date: {formattedDate} | By: {entry.data.author}
+          </p>
+        </div>
+        
+        <!-- Cover image section -->
+        {entry.data.coverimage && (
+          <div class="mt-4 md:mt-0 flex justify-center md:justify-end">
+            <img 
+              src={entry.data.coverimage}
+              alt={entry.data.coveralt || entry.data.title} 
+              class="max-w-[300px] w-full h-auto rounded-lg shadow-md"
+            />
+          </div>
+        )}
+      </div>
+      
+      {/* Article content */}
+      <div class="mt-8" set:html={html}></div>
+      
+      {/* Keywords/Tags with proper type checking */}
+      {Array.isArray(entry.data.keywords) && entry.data.keywords.length > 0 && (
+        <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
+          <div class="flex flex-wrap gap-2">Keywords:  
+            {entry.data.keywords.map((keyword: string) => (
+              <span class="px-3 py-1 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 text-sm rounded-full">
+                {keyword}
+              </span>
+            ))}
+          </div>
+        </div>
       )}
-      <section>
-        <!-- Safely render Markdown content -->
-        <div class="my-markdown-content" set:html={entry.rendered?.html || ''}></div>
-      </section>
+
+      {/* Social Share Buttons */}
+      <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-700">
+        <h3 class="text-lg font-medium mb-3">Share this article:</h3>
+        <div class="flex flex-wrap gap-3">
+          {/* LinkedIn */}
+          <a 
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(currentUrl)}&title=${encodeURIComponent(pageTitle)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 bg-[#0077b5] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"
+            aria-label="Share on LinkedIn"
+          >
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+            LinkedIn
+          </a>
+          
+          {/* Bluesky */}
+          <a 
+            href={`https://bsky.app/intent/post?text=${encodeURIComponent(`${pageTitle} ${currentUrl}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 bg-[#0085ff] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"
+            aria-label="Share on Bluesky"
+          >
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm4.441 7.011l-4.77 8.492a.507.507 0 01-.858.035l-2.879-4.575c-.123-.198-.036-.46.186-.56l7.345-3.529c.218-.104.455.118.348.337l-2.558 4.772 2.289-4.17c.111-.204.404-.202.516 0l.395.716c.079.149.074.329-.014.47z"/>
+            </svg>
+            Bluesky
+          </a>
+          
+          {/* Facebook */}
+          <a 
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 bg-[#1877f2] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"
+            aria-label="Share on Facebook"
+          >
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"/>
+            </svg>
+            Facebook
+          </a>
+          
+          {/* Twitter */}
+          <a 
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${pageTitle} ${currentUrl}`)}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="px-4 py-2 bg-[#1da1f2] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"
+            aria-label="Share on Twitter"
+          >
+            <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723 9.99 9.99 0 01-3.159 1.207A4.92 4.92 0 0012.305 8.2c0 .39.045.765.127 1.124A14.042 14.042 0 012.34 3.6a4.92 4.92 0 001.52 6.574 4.97 4.97 0 01-2.23-.616v.06a4.923 4.923 0 003.95 4.827 4.997 4.997 0 01-2.225.084 4.93 4.93 0 004.6 3.42A9.873 9.873 0 012 19.54a14.003 14.003 0 007.54 2.213c9.053 0 14-7.496 14-14 0-.21 0-.42-.016-.63A9.957 9.957 0 0024 4.657l-.047-.02z"/>
+            </svg>
+            Twitter
+          </a>
+        </div>
+      </div>
     </article>
   </div>
 </Layout>

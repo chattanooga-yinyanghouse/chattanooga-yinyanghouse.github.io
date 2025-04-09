@@ -1,12 +1,33 @@
 ---
-# this posts info
+# Post Basics (always changed)
 title: News Tester Page
-date: 2025-03-08
-slug: news-tester-page-2025-03-08
-author: Xiao
-coverimage: 
-# rarely change
-coveralt: articleimage
+# format YEAR-MON-DAY 2025-02-31
+date: 2025-03-15
+# slug should be title lowercase with hypens and date
+# example this-pages-title-2025-02-31
+slug: news-tester-page-2025-03-15
+# author should be whomever, just single name Abby, John, etc.
+author: Abby
+# SEO Data (always changed)
+description: "This is a test news page that demonstrates markdown content with enhanced SEO and social sharing capabilities."
+# IMAGES can be blank, but always need coveralt if 
+# coverimage is used
+coverimage: "/images/news/test-article-cover.jpg"
+coveralt: "Descriptive alt text for the cover image"
+# ogimage is an optimized image for social sharing 
+# (can be blank and will use coverimage)
+ogImage: "/images/news/test-article-social.jpg"
+# keywords can be added with commas in between
+# first 3 should stay 
+keywords: ["yin yang house chattanooga", "chattanooga events", "wellness events"]
+# Optional SEO
+# shorter title for social shares/posts 
+# (can be blank and uses title)
+socialTitle: "Check out our test news page!" 
+# shorter description for social shares/posts 
+# (can be blank an uses description)
+socialDescription: "Learn more about what's happening at Yin Yang House Chattanooga"
+# BELOW NEVER CHANGED
 layout: ../../layouts/Layout.astro
 parent: news-events
 ---

@@ -1,20 +1,9 @@
 ---
 import Layout from '@layouts/Layout.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
-import type { ImageMetadata } from 'astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
-// interface NewsItem {
-//     frontmatter: {
-//         title: string,
-//         date: Date,
-//         author: string,
-//         coverimg: ImageMetadata,
-//         coveralt: string,
-//         parent: string,
-//     };
-//     url: string;
-// }
+
 const items: CollectionEntry<'newsEvents'>[] = await getCollection('newsEvents');
 const sortedItems = items.sort((a, b) => {
   const dateA = new Date(a.data.date).getTime();
@@ -22,22 +11,48 @@ const sortedItems = items.sort((a, b) => {
   return dateB - dateA; // Sort descending by date
 });
 
-// const items: NewsItem[] = Object.values(import.meta.glob<NewsItem>('./*.md', {eager: true})).sort((a: NewsItem, b: NewsItem) => {
-//   const dateA = new Date(b.frontmatter.date);
-//   const dateB = new Date(a.frontmatter.date);
-//   return dateA.getTime() - dateB.getTime();
-// });
+// Pagination logic
+const ITEMS_PER_PAGE = 10;
+const currentPage = Number(Astro.url.searchParams.get('page') || 1);
+const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
+const paginatedItems = sortedItems.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+
+export async function getStaticPaths() {
+  return {
+    paths: [{ params: { page: '1' } }],
+    fallback: false,
+  };
+}
 ---
+
+<script>
+  window.location.href = '/news-events/1';
+</script>
+
 <Layout title="Chattanooga Center News and Events">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
         <Breadcrumb currentPage="news-events" />
         <h1 class="text-3xl font-bold">Chattanooga Center News and Events</h1>
         <ul class="space-y-2">
-            {items.map(i => (
-                <li>
-                    <a href={`/news-events/${i.data.slug}`}>{i.data.title}</a> :: Date: {i.data.date}
+            {paginatedItems.map(i => (
+                <li class="list-disc ml-5"> 
+                    <a href={`/news-events/${i.data.slug}`}>{i.data.title}</a> (Published: {new Date(i.data.date).toDateString()})
                 </li>
             ))}
         </ul>
+
+        <!-- Pagination Controls -->
+        <div class="flex justify-between mt-6">
+            {currentPage > 1 && (
+                <a href={`?page=${currentPage - 1}`} class="text-blue-500 hover:underline">
+                    ← Previous
+                </a>
+            )}
+            {currentPage < totalPages && (
+                <a href={`?page=${currentPage + 1}`} class="text-blue-500 hover:underline ml-auto">
+                    Next →
+                </a>
+            )}
+        </div>
     </div>
 </Layout>

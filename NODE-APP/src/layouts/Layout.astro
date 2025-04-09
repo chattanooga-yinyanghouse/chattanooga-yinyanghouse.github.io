@@ -1,7 +1,7 @@
 ---
 import '@styles';
 import yyhLogo from '@assets/yyh-chatt-clinic-logo.webp';
-const { title, fullWidth = false } = Astro.props;
+const { title, fullWidth = false, seo = {} } = Astro.props;
 
 // Define navigation items as a reusable constant
 const navItems = [
@@ -9,8 +9,16 @@ const navItems = [
     { href: '/#services', label: 'Services' },
     { href: '/#schedule', label: 'Appointments' },
     { href: '/news-events/', label: 'News / Events' },
-	{ href: '/#contactus', label: 'Contact'},
+    { href: '/#contactus', label: 'Contact'},
 ];
+
+// Default SEO settings
+const siteUrl = Astro.site || 'https://chattanooga.yinyanghouse.com';
+const siteTitle = seo.title || title || 'Yin Yang House Chattanooga - Acupuncture, Massage and Wellness Center';
+const siteDescription = seo.description || 'Yin Yang House Chattanooga is the premier Acupuncture and Wellness Center in the Chattanooga area.';
+const siteImage = seo.image || new URL('/images/yin-yang-house-default.jpg', siteUrl).toString();
+const siteKeywords = seo.keywords || 'acupuncture, massage, wellness, Chattanooga, yoga, herbal medicine, physical therapy, healing, holistic health, alternative medicine';
+const isArticle = seo.article || false;
 ---
 
 <!doctype html>
@@ -34,17 +42,34 @@ const navItems = [
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <meta name="generator" content={Astro.generator} />
-        <title>{title || 'Yin Yang House Chattanooga - Acupuncture, Massage and Wellness Center'}</title>
+        
+        <!-- Primary Meta Tags -->
+        <title>{siteTitle}</title>
+        <meta name="title" content={siteTitle} />
+        <meta name="description" content={siteDescription} />
+        <meta name="keywords" content={typeof siteKeywords === 'string' ? siteKeywords : Array.isArray(siteKeywords) ? siteKeywords.join(', ') : ''} />
 
-        <meta name="description" content="Yin Yang House Chattanooga is the premier Acupuncture and Wellness Center in the Chattanooga area.">
-        <meta name="keywords" content="acupuncture, massage, wellness, Chattanooga, yoga, herbal medicine, physical therapy, healing, holistic health, alternative medicine">
-        <meta property="og:title" content="Yin Yang House Chattanooga - Acupuncture, Massage and Wellness Center" />
-        <meta property="og:description" content="Yin Yang House Chattanooga is the premier Acupuncture and Wellness Center in the Chattanooga area." />
-        <meta property="og:url" content="https://www.yinyanghouse.com" />
-        <meta property="og:type" content="website" />
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Yin Yang House Chattanooga - Acupuncture, Massage and Wellness Center" />
-        <meta name="twitter:description" content="Yin Yang House Chattanooga is the premier Acupuncture and Wellness Center in the Chattanooga area." />
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content={isArticle ? 'article' : 'website'} />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={seo.ogTitle || siteTitle} />
+        <meta property="og:description" content={seo.ogDescription || siteDescription} />
+        <meta property="og:image" content={siteImage} />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={seo.ogTitle || siteTitle} />
+        <meta property="twitter:description" content={seo.ogDescription || siteDescription} />
+        <meta property="twitter:image" content={siteImage} />
+
+        <!-- If it's an article, add article metadata -->
+        {isArticle && (
+            <>
+                <meta property="article:published_time" content={seo.publishDate} />
+                <meta property="article:author" content={seo.author || 'Yin Yang House Chattanooga'} />
+            </>
+        )}
 
         <meta name="robots" content="index, follow">
     </head>

@@ -10,26 +10,29 @@ slug: news-tester-page-2025-03-15
 author: Abby
 # SEO Data (always changed)
 description: "This is a test news page that demonstrates markdown content with enhanced SEO and social sharing capabilities."
-# IMAGES can be blank, but always need coveralt if 
-# coverimage is used
-coverimage: "/images/news/test-article-cover.jpg"
-coveralt: "Descriptive alt text for the cover image"
+# IMAGES can be blank
+# but always need coveralt if coverimage is used
+# -- are almost always "/public/imagename.png"
+# -- cover images should be 300 wide x whatever
+coverimage: "/public/cupping-photo.webp"
+coveralt: "cupping picture"
 # ogimage is an optimized image for social sharing 
 # (can be blank and will use coverimage)
-ogImage: "/images/news/test-article-social.jpg"
+ogImage: ""
 # keywords can be added with commas in between
 # first 3 should stay 
 keywords: ["yin yang house chattanooga", "chattanooga events", "wellness events"]
 # Optional SEO
 # shorter title for social shares/posts 
 # (can be blank and uses title)
-socialTitle: "Check out our test news page!" 
+socialTitle: ""  
 # shorter description for social shares/posts 
 # (can be blank an uses description)
-socialDescription: "Learn more about what's happening at Yin Yang House Chattanooga"
-# BELOW NEVER CHANGED
+socialDescription: "" 
+# BELOW RARELY, IF EVER, CHANGED
 layout: ../../layouts/Layout.astro
 parent: news-events
+
 ---
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.

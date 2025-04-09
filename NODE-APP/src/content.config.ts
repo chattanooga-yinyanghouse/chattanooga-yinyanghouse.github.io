@@ -4,7 +4,6 @@ import { glob, file } from 'astro/loaders';
 const newsEvents = defineCollection({
     loader: glob({ pattern: '*.md', base: './src/content/news-events' }),
     schema: ({ image }) => z.object({
-        // Basic post info (existing fields)
         title: z.string(),
         date: z.date(),
         slug: z.string(),

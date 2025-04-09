@@ -12,9 +12,9 @@ author: Abby
 description: "This is a test news page that demonstrates markdown content with enhanced SEO and social sharing capabilities."
 # IMAGES can be blank
 # but always need coveralt if coverimage is used
-# -- are almost always "/assets/news-events/imagename.png"
-# -- cover images should be 300x150 or close to that
-coverimage: "/src/assets/news-events/cupping-photo.webp"
+# -- are almost always "/public/imagename.png"
+# -- cover images should be 300 wide x whatever
+coverimage: "/public/cupping-photo.webp"
 coveralt: "cupping picture"
 # ogimage is an optimized image for social sharing 
 # (can be blank and will use coverimage)

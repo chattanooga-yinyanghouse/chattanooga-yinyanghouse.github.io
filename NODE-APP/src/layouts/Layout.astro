@@ -7,10 +7,20 @@ const { title, fullWidth = false, seo = {} } = Astro.props;
 const navItems = [
     { href: '/#aboutus', label: 'About Us' },
     { href: '/#services', label: 'Services' },
-    { href: '/#schedule', label: 'Appointments' },
     { href: '/news-events/', label: 'News / Events' },
     { href: '/#contactus', label: 'Contact'},
 ];
+// schedule removed from navitems to make it omnipresent in the header 
+//     { href: '/#schedule', label: 'Appointments' },
+// is in navMobileItems as well
+const navMobileItems = [
+    { href: '/#aboutus', label: 'About Us' },
+    { href: '/#services', label: 'Services' },
+    { href: '/appointments', label: 'Appointments' },
+    { href: '/news-events/', label: 'News / Events' },
+    { href: '/#contactus', label: 'Contact'},
+];
+// schedule from #schedule to /appointments
 
 // Default SEO settings
 const siteUrl = Astro.site || 'https://chattanooga.yinyanghouse.com';
@@ -99,7 +109,15 @@ const isArticle = seo.article || false;
                         </a>
                     ))}
                 </nav>
-
+                <!-- Always visible Schedule (Appointments) Button on Header -->
+                <div class="md:block">
+                    <!-- <a href="/#schedule" class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm"> -->
+                    <a 
+                    href="/appointments" 
+                    class="px-4 py-2 rounded-md bg-[#7BBF67] text-white hover:bg-[#679F5A] dark:bg-[#66BB6A] dark:hover:bg-[#5CAC5F] transition shadow-sm">
+                    Appointments
+                  </a>
+                                                                      </div>
                 <!-- Dark Mode and Mobile Menu Toggle -->
                 <div class="flex items-center space-x-4">
                     <!-- Dark Mode Toggle -->
@@ -143,7 +161,7 @@ const isArticle = seo.article || false;
                 class="md:hidden bg-[#8a712b] dark:bg-[#8a712b] text-white"
                 @click.away="mobileMenuOpen = false"
             >
-                {navItems.map(item => (
+                {navMobileItems.map(item => (
                     <a href={item.href} class="block px-4 py-2 hover:bg-[#9fcf67] dark:hover:bg-[#9fcf67]" @click="mobileMenuOpen = false">
                         {item.label}
                     </a>

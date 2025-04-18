@@ -36,7 +36,7 @@ layout: ../../layouts/Layout.astro
 parent: news-events
 ---
 
-## Rhinosinusitis: Alternative treatment to Antibiotics
+## Rhinosinusitis: An Alternative treatment to Antibiotics
 [Chinese herbal therapy in the management of rhinosinusitis—A systematic review and meta-analysis](https://pmc.ncbi.nlm.nih.gov/articles/PMC9714754/) Rhinosinusitis (RS) is a symptomatic inflammation of the paranasal sinuses and nasal cavity, which, according to the National Health Interview Survey, affects over 12% of the American population. In the USA, adults with RS are frequently treated with antibiotics, and RS was found to be the most common diagnosis that received out-patient antibiotic prescriptions. Due to the causal link between antibiotic consumption and microbial resistance, there have been sustained efforts to seek better treatments and management of RS without relying on antibiotics. 
 
 ## Research

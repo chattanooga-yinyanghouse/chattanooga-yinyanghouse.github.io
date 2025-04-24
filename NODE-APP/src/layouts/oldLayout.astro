@@ -1,28 +1,7 @@
 ---
 import '@styles';
 import yyhLogo from '@assets/yyh-chatt-clinic-logo.webp';
-const { thisPage = {}, fullWidth = false, isArticle = false, isProduct = false } = Astro.props;
-const visibleBreadcrumb = isArticle || isProduct;
-// fullwidth is used for schedule page
-// isArticle is used to show/expand breadcrumbs, etc.
-// isProduct is used to for store specific settings
-/* this page
-const pageData = {
-	title: "",
-	date: "",
-	slug: "",
-	author: "",
-	coverimage: "", 
-	coveralt: "",
-	parent: "",
-	description: "",
-	ogImage: "",
-	keywords: [],
-	socialTitle: "",
-	socialDescription: "",
-	layout: "",
-}
-*/
+const { title, fullWidth = false, seo = {} } = Astro.props;
 
 // Define navigation items as a reusable constant
 const navItems = [
@@ -31,7 +10,9 @@ const navItems = [
     { href: '/news-events/', label: 'News / Events' },
     { href: '/#contactus', label: 'Contact'},
 ];
-
+// schedule removed from navitems to make it omnipresent in the header 
+//     { href: '/#schedule', label: 'Appointments' },
+// is in navMobileItems as well
 const navMobileItems = [
     { href: '/#aboutus', label: 'About Us' },
     { href: '/#services', label: 'Services' },
@@ -39,17 +20,22 @@ const navMobileItems = [
     { href: '/news-events/', label: 'News / Events' },
     { href: '/#contactus', label: 'Contact'},
 ];
+// schedule from #schedule to /appointments
 
-// SEO Handling
+// Default SEO settings
 const siteUrl = Astro.site || 'https://chattanooga.yinyanghouse.com';
-const thisTitle = thisPage.title || 'Yin Yang House Chattanooga - Acupuncture, Massage and Wellness Center';
-const thisDescription = thisPage.description || 'Yin Yang House Chattanooga has been offering acupuncture, massage therapy and other wellness services in the Chattanooga area since 2006.';
-const thisImage = thisPage.image || new URL('/images/yin-yang-house-default.jpg', siteUrl).toString();
-const thisKeywords = thisPage.keywords || 'acupuncture, massage, wellness, Chattanooga, yoga, herbal medicine, physical therapy, healing, holistic health, alternative medicine';
-const thisType = isArticle ? "Article" : (isProduct ? "Product" : "WebPage");
+const siteTitle = seo.title || title || 'Yin Yang House Chattanooga - Acupuncture, Massage and Wellness Center';
+const siteDescription = seo.description || 'Yin Yang House Chattanooga is the premier Acupuncture and Wellness Center in the Chattanooga area.';
+const siteImage = seo.image || new URL('/images/yin-yang-house-default.jpg', siteUrl).toString();
+const siteKeywords = seo.keywords || 'acupuncture, massage, wellness, Chattanooga, yoga, herbal medicine, physical therapy, healing, holistic health, alternative medicine';
+const isArticle = seo.article || false;
+
+// Rich Text Schema and Breadcrumb Schema Setup
+const { currentPage = Astro.props.pageCurrent } = Astro.props
+const { currentTitle = Astro.props.title } = Astro.props;
+const { parentPage = Astro.props.pageParent } = Astro.props;
 
 
-// BreadCrumb and Rich Text Schema Setup
 const breadcrumbData = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -63,42 +49,40 @@ const breadcrumbData = {
   ]
 };
 
-if (thisPage.parent) {
+if (parentPage) {
   breadcrumbData.itemListElement.push({
     "@type": "ListItem",
     "position": 2,
-    "name": thisPage.parent.replace('-', ' '),
-    "item": `https://chattanooga.yinyanghouse.com/${thisPage.parent}`
+    "name": parentPage.replace('-', ' '),
+    "item": `https://chattanooga.yinyanghouse.com/${parentPage}`
   });
 }
 
-if (thisPage.slug) {
-    breadcrumbData.itemListElement.push({
-        "@type": "ListItem",
-        "position": breadcrumbData.itemListElement.length + 1,
-        "name": thisPage.title,
-        "item": `https://chattanooga.yinyanghouse.com/${thisPage.parent ?? `${thisPage.parent}/`}${thisPage.slug}`
-    });
-}
+breadcrumbData.itemListElement.push({
+  "@type": "ListItem",
+  "position": breadcrumbData.itemListElement.length + 1,
+  "name": currentTitle,
+  "item": `https://chattanooga.yinyanghouse.com/${parentPage ?? `${parentPage}/`}${currentPage}`
+});
 
 const jsonLdFull = {
   "@context": "https://schema.org",
   "@graph": [
     breadcrumbData,
     {
-      "@type": thisType,
+      "@type": "Article",
       "@id": Astro.url.href,
       "url": Astro.url.href,
-      "name": thisTitle,
-      "description": thisDescription,
-      "image": thisImage,
+      "name": currentTitle,
+      "description": Astro.props.description,
+      "image": Astro.props.image,
       "author": {
         "@type": "Person",
-        "name": thisPage.author || 'Yin Yang House Chattanooga',
-        "url": Astro.site + "#aboutus"
+        "name": Astro.props.author,
+        "url": Astro.site + "/#aboutus"
       },
-      "datePublished": thisPage.date || "2025-04-24",
-      "headline": thisTitle,
+      "datePublished": Astro.props.publishDate,
+      "headline": currentTitle,
       "mainEntityOfPage": {
         "@type": "WebPage",
         "@id": Astro.url.href
@@ -131,30 +115,30 @@ const jsonLdFull = {
         <meta name="generator" content={Astro.generator} />
         
         <!-- Primary Meta Tags -->
-        <title>{thisTitle}</title>
-        <meta name="title" content={thisTitle} />
-        <meta name="description" content={thisDescription} />
-        <meta name="keywords" content={typeof thisKeywords === 'string' ? thisKeywords : Array.isArray(thisKeywords) ? thisKeywords.join(', ') : ''} />
+        <title>{siteTitle}</title>
+        <meta name="title" content={siteTitle} />
+        <meta name="description" content={siteDescription} />
+        <meta name="keywords" content={typeof siteKeywords === 'string' ? siteKeywords : Array.isArray(siteKeywords) ? siteKeywords.join(', ') : ''} />
 
         <!-- Open Graph / Facebook -->
         <meta property="og:type" content={isArticle ? 'article' : 'website'} />
         <meta property="og:url" content={Astro.url} />
-        <meta property="og:title" content={thisPage.socialTitle || thisTitle} />
-        <meta property="og:description" content={thisPage.socialDescription || thisDescription} />
-        <meta property="og:image" content={thisImage} />
+        <meta property="og:title" content={seo.ogTitle || siteTitle} />
+        <meta property="og:description" content={seo.ogDescription || siteDescription} />
+        <meta property="og:image" content={siteImage} />
 
         <!-- Twitter -->
         <meta property="twitter:card" content="summary_large_image" />
         <meta property="twitter:url" content={Astro.url} />
-        <meta property="twitter:title" content={thisPage.socialTitle || thisTitle} />
-        <meta property="twitter:description" content={thisPage.socialDescription || thisDescription} />
-        <meta property="twitter:image" content={thisImage} />
+        <meta property="twitter:title" content={seo.ogTitle || siteTitle} />
+        <meta property="twitter:description" content={seo.ogDescription || siteDescription} />
+        <meta property="twitter:image" content={siteImage} />
 
         <!-- if - add article metadata -->
         {isArticle && (
             <>
-                <meta property="article:published_time" content={thisPage.date} />
-                <meta property="article:author" content={thisPage.author || 'Yin Yang House Chattanooga'} />
+                <meta property="article:published_time" content={seo.publishDate} />
+                <meta property="article:author" content={seo.author || 'Yin Yang House Chattanooga'} />
             </>
         )}
 
@@ -256,43 +240,6 @@ const jsonLdFull = {
 
         <!-- Main Content -->
         <main class={`${fullWidth ? 'mt-0' : 'pt-20'}`}>
-                {visibleBreadcrumb && (
-  <div class="prose dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-t-lg p-6">
-                    <nav class="flex items-center space-x-2 py-4 px-4 bg-gray-100 dark:bg-gray-800" typeof="BreadcrumbList" vocab="https://schema.org/">
-                    <!-- Logo -->
-                    <a href="/" class="breadcrumb-link flex items-center space-x-2" property="item" typeof="WebPage" id="logo">
-                        <img src={yyhLogo.src} alt="Yin Yang House Logo" class="h-6 w-auto" />
-                        <span class="text-gray-800 dark:text-gray-100 font-bold">Clinic</span>
-                    </a>
-  
-                    <!-- Arrow -->
-                    <span class="text-gray-600 dark:text-gray-400">→</span>
-  
-                    <!-- Parent Page -->
-                    {thisPage.parent && (
-                    <a href={`/${thisPage.parent}/`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline" property="item" typeof="WebPage">
-                        {thisPage.parent.replace('-', ' ')}
-                    </a>
-                    <!-- Arrow -->
-                    <!-- <span class="text-gray-600 dark:text-gray-400">→</span> -->
-                    )}
-  
-                <!-- Current Page -->
-                <!-- <a href={`/${thisPage.parent ? `${thisPage.parent}/` : ""}${thisPage.slug}`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline" property="item" typeof="WebPage">
-                {currentPage.replace('-', ' ')}
-                </a> -->
-                
-                <!-- Optional Title -->
-                {thisTitle && (
-                <>
-                    <span class="text-gray-600 dark:text-gray-400">→</span>
-                    <span class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold" property="name">{thisTitle}</span>
-                </>
-            )}    
-            </nav>
-    </div>
-
-        )}
             <slot />
         </main>
     </body>

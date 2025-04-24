@@ -4,8 +4,24 @@ import Layout from '@layouts/Layout.astro';
 import Scheduling from "@components/Scheduling.astro";
 import Contact from "@components/Contact.astro";
 import Footer from "@components/Footer.astro";
+const pageData = {
+	title: "Acupuncture, Massage and Wellness Appointment Scheduling",
+	date: "",
+	slug: "appointments",
+	author: "",
+	coverimage: "", 
+	coveralt: "",
+	parent: "",
+	description: "Schedule your acupuncture, massage, and wellness appointments online with Yin Yang House Chattanooga.",
+	ogImage: "",
+	keywords: ["acupuncture appointments", "massage appointments", "yoga classes", "wellness visits"],
+	socialTitle: "",
+	socialDescription: "",
+	layout: "",
+}
 ---
-<Layout fullWidth={true}>
+
+<Layout fullWidth={true} thisPage={pageData} isArticle={false} isProduct={false}>
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8">
 		<Scheduling />
 		<Contact />

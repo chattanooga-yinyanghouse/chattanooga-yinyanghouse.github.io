@@ -6,8 +6,8 @@ date: 2025-04-17
 # slug should be title lowercase with hypens and date
 # example this-pages-title-2025-02-31
 slug: chinese-herbal-medicine-for-rhinosinusitis-2025-04-17
-# author should be whomever, just single name Abby, John, etc.
-author: Abby
+# author should be whomever, just single name in quotes "Abby", "John", etc.
+author: "Abby"
 # SEO Data (always changed)
 description: "Research comparing the effectiveness of antibiotics to Chinese herbal medicine for acute and chronic rhinosinusitis"
 # IMAGES can be blank
@@ -33,7 +33,7 @@ socialTitle: "Chinese Herbs for Sinus Issues"
 socialDescription: "Chinese Herbs as effective as antibiotics for rhinosinusitis" 
 # BELOW RARELY, IF EVER, CHANGED
 layout: ../../layouts/Layout.astro
-parent: news-events
+parent: "news-events"
 ---
 
 ## Rhinosinusitis: An Alternative treatment to Antibiotics

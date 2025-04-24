@@ -1,6 +1,5 @@
 ---
 import Layout from '@layouts/Layout.astro';
-import Breadcrumb from '@components/Breadcrumb.astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
@@ -23,15 +22,24 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
+const pageData = {
+	title: "Yin Yang House Chattanooga News and Events",
+	date: "",
+	slug: "news-events",
+	author: "",
+	coverimage: "", 
+	coveralt: "",
+	parent: "",
+	description: "News and events related to the acupuncture, massage and wellness services offered at Yin Yang House Chattanooga.",
+	ogImage: "",
+	keywords: ["acupuncture news", "chattannoga wellness news", "chattanooga events", "massage therapy news"],
+	socialTitle: "",
+	socialDescription: "",
+	layout: "",
+}
 ---
-
-<script>
-  window.location.href = '/news-events/1';
-</script>
-
-<Layout title="Chattanooga Center News and Events">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-        <Breadcrumb currentPage="news-events" />
+<Layout fullWidth={false} thisPage={pageData} isArticle={true} isProduct={false}>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-b-lg p-6">
         <h1 class="text-3xl font-bold">Chattanooga Center News and Events</h1>
         <ul class="space-y-2">
             {paginatedItems.map(i => (

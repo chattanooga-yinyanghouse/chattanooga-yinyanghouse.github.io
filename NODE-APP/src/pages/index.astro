@@ -4,17 +4,30 @@ import Layout from '@layouts/Layout.astro';
 import Hero from "@components/Hero.astro";
 import About from "@components/About.astro";
 import Services from "@components/Services.astro";
-//import Scheduling from "@components/Scheduling.astro";
 import Contact from "@components/Contact.astro";
 import Footer from "@components/Footer.astro";
+const pageData = {
+	title: "",
+	date: "",
+	slug: "",
+	author: "",
+	coverimage: "", 
+	coveralt: "",
+	parent: "",
+	description: "",
+	ogImage: "",
+	keywords: [],
+	socialTitle: "",
+	socialDescription: "",
+	layout: "",
+}
 ---
 
-<Layout fullWidth={true}>
+<Layout fullWidth={true} thisPage={pageData} isArticle={false} isProduct={false}>
 	<Hero fullWidth={true} />
 	<div class="container mx-auto px-4 sm:px-6 lg:px-8">
 		<About />
 		<Services />
-		<!--  <Scheduling /> -->
 		<Contact />
 		<Footer />
 	</div>

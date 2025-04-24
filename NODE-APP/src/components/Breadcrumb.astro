@@ -1,40 +1,72 @@
 ---
 import yyhLogo from '@assets/yyh-chatt-clinic-logo.webp';
 
-const { currentPage, currentTitle = Astro.props.title } = Astro.props;
-const { parentPage = Astro.props.parent } = Astro.props;
+//const { currentPage, currentTitle = Astro.props.title } = Astro.props;
+const { currentPage = Astro.props.pageCurrent } = Astro.props;
+const { currentTitle = Astro.props.title } = Astro.props;
+const { parentPage = Astro.props.pageParent } = Astro.props;
+
+const breadcrumbData = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://chattanooga.yinyanghouse.com/"
+    }
+  ]
+};
+
+if (parentPage) {
+  breadcrumbData.itemListElement.push({
+    "@type": "ListItem",
+    "position": 2,
+    "name": parentPage.replace('-', ' '),
+    "item": `https://chattanooga.yinyanghouse.com/${parentPage}`
+  });
+}
+
+breadcrumbData.itemListElement.push({
+  "@type": "ListItem",
+  "position": breadcrumbData.itemListElement.length + 1,
+  "name": currentTitle,
+  "item": `https://chattanooga.yinyanghouse.com/${parentPage ?? `${parentPage}/`}${currentPage}`
+});
 
 ---
 
-<nav class="flex items-center space-x-2 py-4 px-4 bg-gray-100 dark:bg-gray-800">
+<nav class="flex items-center space-x-2 py-4 px-4 bg-gray-100 dark:bg-gray-800" typeof="BreadcrumbList" vocab="https://schema.org/">
     <!-- Logo -->
-    <a href="/" class="breadcrumb-link flex items-center space-x-2">
-        <img src={yyhLogo.src} alt="Yin Yang House Logo" class="h-6 w-auto" />
-        <span class="text-gray-800 dark:text-gray-100 font-bold">Clinic</span>
+    <a href="/" class="breadcrumb-link flex items-center space-x-2" property="item" typeof="WebPage" id="logo">
+      <img src={yyhLogo.src} alt="Yin Yang House Logo" class="h-6 w-auto" />
+      <span class="text-gray-800 dark:text-gray-100 font-bold">Clinic</span>
     </a>
-
+  
     <!-- Arrow -->
     <span class="text-gray-600 dark:text-gray-400">→</span>
-
-<!-- Parent Page -->
+  
+    <!-- Parent Page -->
     {parentPage && (
-        <a href="{`${parentPage}`}" class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline">
+      <a href={`/${parentPage}/`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline" property="item" typeof="WebPage">
         {parentPage.replace('-', ' ')}
-    </a>
-    <!-- Arrow -->
-    <span class="text-gray-600 dark:text-gray-400">→</span>
+      </a>
+      <!-- Arrow -->
+      <!-- <span class="text-gray-600 dark:text-gray-400">→</span> -->
     )}
-
+  
     <!-- Current Page -->
-    <a href={`/${currentPage}`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline">
-        {currentPage.replace('-', ' ')}
-    </a>
-
+    <!-- <a href={`/${parentPage ? `${parentPage}/` : ""}${currentPage}`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline" property="item" typeof="WebPage">
+      {currentPage.replace('-', ' ')}
+    </a> -->
+    
     <!-- Optional Title -->
     {currentTitle && (
-        <>
-            <span class="text-gray-600 dark:text-gray-400">→</span>
-            <span class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold">{currentTitle}</span>
-        </>
-    )}
+      <>
+        <span class="text-gray-600 dark:text-gray-400">→</span>
+        <span class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold" property="name">{currentTitle}</span>
+      </>
+    )}    
 </nav>
+  

@@ -16,7 +16,7 @@ description: "Research comparing the effectiveness of antibiotics to Chinese her
 # -- should be webp format and
 # -- 300 wide x whatever
 # -- saved into the public folder
-coverimage: "/_stuffynose.webp"
+coverimage: "/stuffynose.webp"
 coveralt: "stuffy nose picture"
 # ogimage is an optimized image for social sharing 
 # (can be blank and will use coverimage)

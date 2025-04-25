@@ -118,7 +118,7 @@ const pageData = {
         <h3 class="text-lg font-medium mb-3">Share this article:</h3>
         <div class="flex flex-wrap gap-3">
           {/* LinkedIn */}
-          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${siteUrl}${pageData.parent ? `/${pageData.parent}/` : ''}${pageData.slug}`)}&title=${encodeURIComponent(pageData.title)}`}
+          <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${siteUrl}${pageData.parent ? `${pageData.parent}/` : ''}${pageData.slug}`)}&title=${encodeURIComponent(pageData.title)}`}
           target="_blank"
             rel="noopener noreferrer"
             class="px-4 py-2 bg-[#0077b5] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"
@@ -132,7 +132,7 @@ const pageData = {
           
           {/* Bluesky */}
           <a 
-            href={`https://bsky.app/intent/post?text=${encodeURIComponent(`${pageTitle} ${currentUrl}`)}`}
+            href={`https://bsky.app/compose?text=${encodeURIComponent(`${siteUrl}${pageData.parent ? `${pageData.parent}/` : ''}${pageData.slug}`)}&title=${encodeURIComponent(pageData.title)}`}
             target="_blank"
             rel="noopener noreferrer"
             class="px-4 py-2 bg-[#0085ff] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"
@@ -146,7 +146,7 @@ const pageData = {
           
           {/* Facebook */}
           <a 
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(currentUrl)}`}
+            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${siteUrl}${pageData.parent ? `${pageData.parent}/` : ''}${pageData.slug}`)}&title=${encodeURIComponent(pageData.title)}`}
             target="_blank"
             rel="noopener noreferrer"
             class="px-4 py-2 bg-[#1877f2] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"
@@ -160,7 +160,7 @@ const pageData = {
           
           {/* Twitter */}
           <a 
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${pageTitle} ${currentUrl}`)}`}
+            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`${siteUrl}${pageData.parent ? `${pageData.parent}/` : ''}${pageData.slug}`)}&title=${encodeURIComponent(pageData.title)}`}
             target="_blank"
             rel="noopener noreferrer"
             class="px-4 py-2 bg-[#1da1f2] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"

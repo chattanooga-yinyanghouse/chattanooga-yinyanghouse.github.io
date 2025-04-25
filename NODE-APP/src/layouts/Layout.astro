@@ -256,43 +256,34 @@ const jsonLdFull = {
 
         <!-- Main Content -->
         <main class={`${fullWidth ? 'mt-0' : 'pt-20'}`}>
-                {visibleBreadcrumb && (
+{visibleBreadcrumb && (
   <div class="prose dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-t-lg p-6">
-                    <nav class="flex items-center space-x-2 py-4 px-4 bg-gray-100 dark:bg-gray-800" typeof="BreadcrumbList" vocab="https://schema.org/">
-                    <!-- Logo -->
-                    <a href="/" class="breadcrumb-link flex items-center space-x-2" property="item" typeof="WebPage" id="logo">
-                        <img src={yyhLogo.src} alt="Yin Yang House Logo" class="h-6 w-auto" />
-                        <span class="text-gray-800 dark:text-gray-100 font-bold">Clinic</span>
-                    </a>
-  
-                    <!-- Arrow -->
-                    <span class="text-gray-600 dark:text-gray-400">→</span>
-  
-                    <!-- Parent Page -->
-                    {thisPage.parent && (
-                    <a href={`/${thisPage.parent}/`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline" property="item" typeof="WebPage">
-                        {thisPage.parent.replace('-', ' ')}
-                    </a>
-                    <!-- Arrow -->
-                    <!-- <span class="text-gray-600 dark:text-gray-400">→</span> -->
-                    )}
-  
-                <!-- Current Page -->
-                <!-- <a href={`/${thisPage.parent ? `${thisPage.parent}/` : ""}${thisPage.slug}`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline" property="item" typeof="WebPage">
-                {currentPage.replace('-', ' ')}
-                </a> -->
-                
-                <!-- Optional Title -->
-                {thisTitle && (
-                <>
-                    <span class="text-gray-600 dark:text-gray-400">→</span>
-                    <span class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold" property="name">{thisTitle}</span>
-                </>
-            )}    
-            </nav>
-    </div>
+    <nav class="flex items-center flex-wrap space-x-2 py-4 px-4 bg-gray-100 dark:bg-gray-800" typeof="BreadcrumbList" vocab="https://schema.org/">
+      <!-- Logo -->
+      <a href="/" class="breadcrumb-link flex items-center space-x-2" property="item" typeof="WebPage" id="logo">
+        <img src={yyhLogo.src} alt="Yin Yang House Logo" class="h-6 w-auto" />
+        <span class="text-gray-800 dark:text-gray-100 font-bold">Clinic</span>
+      </a>
 
-        )}
+
+      <!-- Parent Page -->
+      {thisPage.parent && (
+          <span class="text-gray-600 dark:text-gray-400">→</span>
+          <a href={`/${thisPage.parent}/`} class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold hover:underline" property="item" typeof="WebPage">
+          {thisPage.parent.replace('-', ' ')}
+        </a>
+      )}
+
+      <!-- Optional Title -->
+      {thisTitle && (
+        <>
+          <span class="text-gray-600 dark:text-gray-400">→</span>
+          <span class="breadcrumb-link text-gray-800 dark:text-gray-100 font-bold" property="name">{thisTitle}</span>
+        </>
+      )}
+    </nav>
+  </div>
+)}
             <slot />
         </main>
     </body>

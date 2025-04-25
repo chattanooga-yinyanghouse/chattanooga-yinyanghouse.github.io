@@ -3,52 +3,62 @@ import Layout from '@layouts/Layout.astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
-// Define pagination constant
-export const ITEMS_PER_PAGE = 10;
 
 // Type definition for params
 interface Params {
   page: string;
 }
 
-// Static path generation
 export async function getStaticPaths() {
+  // Define pagination constant
+  const ITEMS_PER_PAGE = 10;
+
+  // Fetch your news events collection
   const newsEvents = await getCollection('newsEvents');
+
+  // Calculate the total number of pages
   const totalPages = Math.ceil(newsEvents.length / ITEMS_PER_PAGE);
-  
-  return Array.from({ length: totalPages }, (_, i) => {
-    const page = i + 1;
-    const start = i * ITEMS_PER_PAGE;
-    const end = start + ITEMS_PER_PAGE;
-    
-    const paginatedItems = newsEvents
-      .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime())
-      .slice(start, end);
-    
+
+  // Create an array of paths (each with params for dynamic routing)
+  const paths = Array.from({ length: totalPages }, (_, i) => {
+    const page = i + 1; // Pages start at 1
     return {
-      params: { page: page.toString() },
-      props: { paginatedItems, page, totalPages }
+      params: { page: page === 1 ? 'news-events' : `${page}` },
+      props: {
+        paginatedItems: newsEvents.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE),
+        totalPages,
+      },
     };
   });
+
+  // Return the expected object
+  return paths;
 }
 
-// Get props from getStaticPaths
-const { paginatedItems, page, totalPages } = Astro.props;
-const currentPage = page as number;
+
+const { paginatedItems, totalPages }: { 
+  paginatedItems: CollectionEntry<'newsEvents'>[]; 
+  totalPages: number; 
+} = Astro.props;
+const { page } = Astro.params;
+const currentPage = Number(page || 1); // Ensure the current page is a number
+
+
+
 const pageData = {
-	title: currentPage === 1 ? "Yin Yang House Chattanooga News and Events" : `Yin Yang House Chattanooga News and Events - Page ${currentPage}`,
-	date: "",
-	slug: currentPage === 1 ? "news-events" : `${currentPage}`,
-	author: "",
-	coverimage: "", 
-	coveralt: "",
-	parent: currentPage === 1 ? "" : `"news-events"`,
-	description: "News and events related to the acupuncture, massage and wellness services offered at Yin Yang House Chattanooga.",
-	ogImage: "",
-	keywords: ["acupuncture news", "chattannoga wellness news", "chattanooga events", "massage therapy news"],
-	socialTitle: "",
-	socialDescription: "",
-	layout: "",
+  title: currentPage === 1 ? "Yin Yang House Chattanooga News and Events" : `Yin Yang House Chattanooga News and Events - Page ${currentPage}`,
+  date: "",
+  slug: currentPage === 1 ? "news-events" : `${currentPage}`,
+  author: "",
+  coverimage: "", 
+  coveralt: "",
+  parent: currentPage === 1 ? "" : `news-events`,
+  description: "News and events related to the acupuncture, massage and wellness services offered at Yin Yang House Chattanooga.",
+  ogImage: "",
+  keywords: ["acupuncture news", "chattannoga wellness news", "chattanooga events", "massage therapy news"],
+  socialTitle: "",
+  socialDescription: "",
+  layout: "",
 }
 
 ---
@@ -64,18 +74,19 @@ const pageData = {
             ))}
         </ul>
 
-        <!-- Pagination Controls -->
-        <div class="flex justify-between mt-6">
-            {currentPage > 1 && (
-                <a href={`/news-events/${currentPage - 1}`} class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm">
-                    ← Previous
-                </a>
-            )}
-            {currentPage < totalPages && (
-                <a href={`/news-events/${currentPage + 1}`} class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm ml-auto">
-                    Next →
-                </a>
-            )}
-        </div>
+<!-- Pagination Controls -->
+<div class="flex justify-between mt-6">
+  {currentPage > 1 && (
+    <a href={`/${currentPage === 2 ? 'news-events' : `news-events/${currentPage - 1}`}`} class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm">
+      ← Previous
+    </a>
+  )}
+
+  {currentPage < totalPages && (
+    <a href={`/news-events/${currentPage + 1}`} class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm ml-auto">
+      Next →
+    </a>
+  )}
+</div>
     </div>
 </Layout>

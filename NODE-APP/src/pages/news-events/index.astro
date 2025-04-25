@@ -11,17 +11,11 @@ const sortedItems = items.sort((a, b) => {
 });
 
 // Pagination logic
-const ITEMS_PER_PAGE = 10;
-const currentPage = Number(Astro.url.searchParams.get('page') || 1);
+const ITEMS_PER_PAGE = 10; 
+const currentPage = Number(1); // Always page 1 for `index.astro`
 const totalPages = Math.ceil(sortedItems.length / ITEMS_PER_PAGE);
-const paginatedItems = sortedItems.slice((currentPage - 1) * ITEMS_PER_PAGE, currentPage * ITEMS_PER_PAGE);
+const paginatedItems = sortedItems.slice(0, ITEMS_PER_PAGE); // Items for the first page
 
-export async function getStaticPaths() {
-  return {
-    paths: [{ params: { page: '1' } }],
-    fallback: false,
-  };
-}
 const pageData = {
 	title: "Yin Yang House Chattanooga News and Events",
 	date: "",
@@ -48,19 +42,19 @@ const pageData = {
                 </li>
             ))}
         </ul>
-
-        <!-- Pagination Controls -->
-        <div class="flex justify-between mt-6">
-            {currentPage > 1 && (
-                <a href={`?page=${currentPage - 1}`} class="text-blue-500 hover:underline">
-                    ← Previous
-                </a>
-            )}
-            {currentPage < totalPages && (
-                <a href={`?page=${currentPage + 1}`} class="text-blue-500 hover:underline ml-auto">
-                    Next →
-                </a>
-            )}
-        </div>
-    </div>
+<!-- Pagination Controls -->
+<div class="flex justify-between mt-6">
+    {currentPage > 1 && (
+      <a href={`/${currentPage === 2 ? 'news-events' : `news-events/${currentPage - 1}`}`} class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm">
+        ← Previous
+      </a>
+    )}
+  
+    {currentPage < totalPages && (
+      <a href={`/news-events/${currentPage + 1}`} class="px-4 py-2 rounded-md bg-[#a48c3c] text-white hover:bg-[#b59d4d] dark:bg-[#8a712b] dark:hover:bg-[#9b823c] transition shadow-sm ml-auto">
+        Next →
+      </a>
+    )}
+  </div>
+      </div>
 </Layout>

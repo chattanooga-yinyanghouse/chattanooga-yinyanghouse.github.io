@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '@layouts/Layout.astro';
-import Breadcrumb from '@components/Breadcrumb.astro';
 
 // Get the slug from URL params
 const { slug } = Astro.params;
@@ -55,22 +54,26 @@ export async function getStaticPaths() {
 }
 
 // Pass all the metadata to the Layout component
-const seoMeta = {
-  title: pageTitle,
-  description: pageDescription,
-  image: pageImageUrl,
-  author: pageAuthor,
-  article: true,
-  publishDate,
-  keywords,
-  ogTitle: socialTitle,
-  ogDescription: socialDescription
-};
+const pageData = {
+	title: entry.data.title,
+	date: entry.data.date,
+	slug: entry.data.slug,
+	author: entry.data.author,
+	coverimage: entry.data.coverimage,
+	coveralt: entry.data.coveralt,
+	parent: "news-events",
+	description: entry.data.description,
+	ogImage: entry.data.ogImage || entry.data.coverimage || '/images/yin-yang-house-default.jpg', 
+	keywords: Array.isArray(entry.data.keywords) ? entry.data.keywords : ['wellness', 'health', 'chattanooga', 'yin yang house'],
+	socialTitle: entry.data.socialTitle,
+	socialDescription: entry.data.socialDescription,
+	layout: "",
+}
+
 ---
 
-<Layout title={pageTitle} seo={seoMeta} pageCurrent={pageCurrent} pageParent={pageParent}>
+<Layout fullWidth={false} thisPage={pageData} isArticle={true} isProduct={false}>
   <div class="prose dark:prose-invert max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-    <Breadcrumb title={pageTitle} pageCurrent={pageCurrent} pageParent={pageParent} />
     <article>
       <!-- Responsive header section: stacked on mobile, side-by-side on desktop -->
       <div class="flex flex-col md:flex-row md:items-start md:justify-between md:gap-8">

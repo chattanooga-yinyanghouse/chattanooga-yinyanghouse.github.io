@@ -1,6 +1,5 @@
 ---
 import Layout from '@layouts/Layout.astro';
-import Breadcrumb from '@components/Breadcrumb.astro';
 import type { CollectionEntry } from 'astro:content';
 import { getCollection } from 'astro:content';
 
@@ -36,11 +35,26 @@ export async function getStaticPaths() {
 // Get props from getStaticPaths
 const { paginatedItems, page, totalPages } = Astro.props;
 const currentPage = page as number;
+const pageData = {
+	title: currentPage === 1 ? "Yin Yang House Chattanooga News and Events" : `Yin Yang House Chattanooga News and Events - Page ${currentPage}`,
+	date: "",
+	slug: currentPage === 1 ? "news-events" : `${currentPage}`,
+	author: "",
+	coverimage: "", 
+	coveralt: "",
+	parent: currentPage === 1 ? "" : `"news-events"`,
+	description: "News and events related to the acupuncture, massage and wellness services offered at Yin Yang House Chattanooga.",
+	ogImage: "",
+	keywords: ["acupuncture news", "chattannoga wellness news", "chattanooga events", "massage therapy news"],
+	socialTitle: "",
+	socialDescription: "",
+	layout: "",
+}
+
 ---
 
-<Layout title="Chattanooga Center News and Events">
+<Layout fullWidth={false} thisPage={pageData} isArticle={true} isProduct={false}>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-        <Breadcrumb currentPage="news-events" />
         <h1 class="text-3xl font-bold">Chattanooga Center News and Events</h1>
         <ul class="space-y-2">
             {paginatedItems.map(i => (

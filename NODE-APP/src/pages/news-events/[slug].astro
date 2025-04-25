@@ -132,7 +132,7 @@ const pageData = {
           
           {/* Bluesky */}
           <a 
-            href={`https://bsky.app/compose?text=${encodeURIComponent(`${siteUrl}${pageData.parent ? `${pageData.parent}/` : ''}${pageData.slug}`)}&title=${encodeURIComponent(pageData.title)}`}
+            href={`https://bsky.app/intent/compose?text=${encodeURIComponent(`${siteUrl}${pageData.parent ? `${pageData.parent}/` : ''}${pageData.slug}`)}&title=${encodeURIComponent(pageData.title)}`}
             target="_blank"
             rel="noopener noreferrer"
             class="px-4 py-2 bg-[#0085ff] text-white rounded-md hover:bg-opacity-90 transition-colors flex items-center"

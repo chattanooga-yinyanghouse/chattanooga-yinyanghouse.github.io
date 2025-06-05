@@ -16,8 +16,8 @@ description: "Amanda offering Prenatal Massage Therapy"
 # -- should be webp format and
 # -- 300 wide x whatever
 # -- saved into the public folder
-coverimage: 
-coveralt: 
+coverimage: ""
+coveralt: ""
 # ogimage is an optimized image for social sharing 
 # (can be blank and will use coverimage)
 ogImage: ""
@@ -30,11 +30,11 @@ keywords: ["yin yang house chattanooga", "chattanooga events", "wellness events"
 socialTitle: "Prenatal Massage with Amanda"  
 # shorter description for social shares/posts 
 # (can be blank an uses description)
-socialDescription: 
+socialDescription: ""
 # BELOW RARELY, IF EVER, CHANGED
 layout: ../../layouts/Layout.astro
 parent: "news-events"
 ---
 
 ## Prenatal Massage Therapy with Amanda
-[This service caters to the comfort of an expecting mother in her second or third trimester. A side-lying position is used with bolsters and pillows to ensure comfort. This hour service includes a full body massage using gentle techniques to enhance relaxation and reduce discomfort that commonly occurs in the low back, hips, feet, neck and shoulders during pregnancy. This is a 60 minute session for $90.] 
+This service caters to the comfort of an expecting mother in her second or third trimester. A side-lying position is used with bolsters and pillows to ensure comfort. This hour service includes a full body massage using gentle techniques to enhance relaxation and reduce discomfort that commonly occurs in the low back, hips, feet, neck and shoulders during pregnancy. This is a 60 minute session for $90.

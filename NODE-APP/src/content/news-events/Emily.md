@@ -26,6 +26,6 @@ parent: "news-events"
 ---
 
 ## We are excited to welcome a new a new massage therapist to our wellness team, Emily Mabry, LMT!
-[With a Bachelor's degree in Psychology from Lee University, Emily has worked as a mental health counselor for years before her passion for helping others led her to obtain her massage therapy certification from Chattanooga State in 2025. Massage has personally helped Emily with her own chronic pain and she finds fulfillment sharing with her clients the power of putting space between pain and suffering through a consistent, compassionate, and connected conversation with the body. Emily offers customized massage sessions that may include a variety of techniques & tools such as, but not limited to: swedish massage, assisted stretching, myofascial release, and neuromuscular therapy.]
+With a Bachelor's degree in Psychology from Lee University, Emily has worked as a mental health counselor for years before her passion for helping others led her to obtain her massage therapy certification from Chattanooga State in 2025. Massage has personally helped Emily with her own chronic pain and she finds fulfillment sharing with her clients the power of putting space between pain and suffering through a consistent, compassionate, and connected conversation with the body. Emily offers customized massage sessions that may include a variety of techniques & tools such as, but not limited to: swedish massage, assisted stretching, myofascial release, and neuromuscular therapy.
 ## June 2025 Promo
-[All bookings with Emily for the month of June will receive 10% off]
+All bookings with Emily for the month of June will receive 10% off

@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-    site: 'https://chattanooga.yinyanghouse.com',
+    site: 'https://yyhchattanooga.com',
     vite: {
         plugins: [tailwindcss()],
     },

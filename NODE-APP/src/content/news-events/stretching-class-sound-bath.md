@@ -31,3 +31,5 @@ Next, Xiao will perform a healing sound bath with crystal healing bowls, tuning 
 During the sound bath, Amanda will make her way around the room performing reiki on participants to infuse extra healing energy & relaxation into this experience.
 ## What to bring?
 Please bring a yoga mat if you have one. You may also want to bring a blanket to get cozy during the sound healing portion of the event. Any other comfort items such as a pillow may be used, but we have extras at the clinic if needed.
+## Event Details
+Wednesday, August 6th from 5:00pm-6:45pm. Cost is $40 per participant. You can book online under "Appointments" and scroll down to "Stretching Class & Sound Bath with Reiki Group Session".

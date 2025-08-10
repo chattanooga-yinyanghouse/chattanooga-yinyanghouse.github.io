@@ -28,4 +28,4 @@ parent: "news-events"
 ## Small Group Circuit Training Class Offered on Wednesdays 2-3pm
 Physical therapist, John Waller, is teaching a small group class capped at 4 participants. It is geared towards individuals looking to build muscle, lose weight, and improve overall mobility and health. The class will use primarily dumbbells, therabands, and body weight exercises tailored to the participants and class as a whole. Beginners are welcome & encouraged - no previous gym experience is required. 
 ## Other information
-Cost is $30 per class. Individual attention and modifications will be given as necessary. Participants should be able to stand independently and not require balance assistance. Please wear clothes and shoes suitable for exercise.
+Cost is $30 per class. Individual attention and modifications will be given as necessary. Participants should be able to stand safely and unsupported without assistance. Individuals requiring assistance would benefit more from a one-on-one appointment for balance/strength training.

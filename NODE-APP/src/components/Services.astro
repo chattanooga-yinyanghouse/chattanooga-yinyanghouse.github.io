@@ -2,19 +2,45 @@
 const services = [
   { 
     title: 'Acupuncture', 
-    description: `<p>Acupuncture is used worldwide both as a primary and complementary form of medical treatment. The list of conditions that acupuncture may help is essentially limitless. The most common conditions are:</p><ul><li class="list-disc">allergies/asthma</li><li class="list-disc">headaches<li><li class="list-disc">anxiety/depression</li><li class="list-disc">fertility</li><li class="list-disc">neurological conditions</li><li class="list-disc">pain anywhere in the body</li></ul>`
+    description: `<p>Acupuncture is used worldwide both as a primary and complementary form of medical treatment. The list of conditions that acupuncture may help is essentially limitless. The most common conditions are:</p><ul><li class="list-disc">allergies/asthma</li><li class="list-disc">headaches<li><li class="list-disc">anxiety/depression/insomnia</li><li class="list-disc">fertility</li><li class="list-disc">neurological conditions</li><li class="list-disc">pain anywhere in the body</li></ul>`
+},
+{ 
+    title: 'Cosmetic Rejuvenation Acupuncture', 
+    description: `<p>A traditional Chinese medicine treatment that uses fine needles inserted into specific points on the face to improve skin health and appearance. It can reduce fine lines, wrinkles, puffiness, and sagging. In addition to needles, our acupuncturist may also incorporate gua sha, facial cupping, and red light therapy into your treatment. Body acupuncture points may also be used to address underlying conditions affecting facial appearance. We recommend waiting 2 weeks after and botox/fillers and to arrive with a clean, make-up free face.</li></ul>`
+},
+{ 
+    title: 'Acupuncture with Sound Healing', 
+    description: `<p>Enhance the healing benefits of your acupuncture session by combining it with a sound bath utilizing crystal singing bowls, tuning forks, and other therapeutic instruments. You will lay on a soft mat in our studio space with natural lighting and plants while you receive acupuncture, then are immersed in an individualized sound bath.</li></ul>`
 },
   { 
     title: 'Massage Therapy', 
-    description: `<p>Massage therapy has long been appreciated for it's ability to remove stress and tension within the body which contributes to disease and pain. The variety of techniques within the field of massage therapy have much to offer both in the way of assisting in the healing and prevention of disease as well as health maintenance.</p>` 
+    description: `<p>Massage therapy has long been appreciated for it's ability to remove stress and tension within the body which contributes to disease and pain. The variety of techniques within the field of massage therapy have much to offer both in the way of assisting in the healing and prevention of disease as well as health maintenance.
+<br />Our therapists offer the following massage techniques:
+<br />-Therapeutic or Relaxation Massage (30, 45, 60, 90 minutes focused on relaxing the body and/or decreasing pain/improving mobility)
+<br />-Prenatal Massage (massage for moms-to-be with a specialized pregnancy pillow or supported side-lying position)
+<br />-Hot Stone Massage (smooth, heated stones add an extra layer of relaxation and circulation support to your massage session)
+<br />-Assisted Stretching (client is fully clothed while the therapist brings their body into effective stretches to increase mobility and reduce muscle tension)
+<br />-Massage for Jaw Pain (advanced massage techniques for those suffering from TMJ dysfunction or pain, includes intra-oral techniques)</p>` 
 },
   { 
-    title: 'Lymphatic Drainage Therapies', 
-    description: `<ul class="m-3"><li class="list-disc">Manual Lymphatic Drainage (Vodder method) is a gentle and effective hands-on technique to encourage excess fluid, metabolic waste, allergens, bacteria/viruses, etc to exit the body through the lymphatic system, while optimizing the immune system. Congestion of the lymph fluid in the body can happen due to trauma (physical and/or emotional), surgery, cancer treatments, chronic disease, infections, poor lifestyle habits, genetic factors, and environmental toxins.</li><li class="list-disc">Assisted-Lymphatic Therapy (also called Electro-Lymphatic Therapy) uses the principles of the Vodder method to more deeply stimulate the lymphatics by means of an instrument that is glided along the skin, transmitting electrical, light, and vibrational frequencies to thin the lymph fluid and break-up congested areas. This makes it easier for the lymphatic vessels to absorb and eliminate from the body.</li></ul>` 
+    title: 'Lymphatic Drainage', 
+    description: `<ul class="m-3"><li class="list-disc">Manual Lymphatic Drainage (Vodder method) is a gentle and effective hands-on technique to encourage excess fluid, metabolic waste, allergens, bacteria/viruses, etc to exit the body through the lymphatic system, while optimizing the immune system. Congestion of the lymph fluid in the body can happen due to trauma (physical and/or emotional), surgery, cancer treatments, chronic disease, infections, poor lifestyle habits, genetic factors, and environmental toxins.</li><li class="list-disc">Electro-Lymphatic Therapy (also called Assisted Lymphatic Therapy) uses the principles of the Vodder method to more deeply stimulate the lymphatics by means of an instrument that is glided along the skin, transmitting electrical, light, and vibrational frequencies to thin the lymph fluid and break-up congested areas. This makes it easier for the lymphatic vessels to absorb and eliminate from the body.</li></ul>` 
+},
+  { 
+    title: 'Post-Operative Therapies: Plastic & Reconstructive Surgery, Orthopedic Surgery', 
+    description: `<ul class="m-3"><li class="list-disc">After plastic surgery or orthopedic surgery, manual lymphatic drainage is helpful at reducing swelling, bruising, and inflammation. The Vodder method of MLD is very gentle and uses the stretch of the skin along with light pumping motions to move fluid out of the tissue space and back into the lymph system so your body can eliminate excess fluid and waste. After the incisions have healed, different techniques will be incorporated to address scar tissue, mobility, and pain.</li></ul>` 
 },
 {
     title: 'Physical Therapy Wellness Services',
     description: `<p>Working with a physical therapist can improve your overall strength, balance, and mobility. Therapeutic exercises are prescribed to restore musculoskeletal function, improve posture, decrease pain with movement, and improve quality of life. Manual therapies may be included when appropriate, and lifestyle considerations are discussed to ensure a holistic approach to your well-being. Providing cash-based therapy allows the PT to always have a one-on-one session with the patient and no referral is needed. This service is beneficial for those who have: pain with movement, impaired balance, decreased joint mobility, overall weakness, decreased stamina, and/or those seeking a customized exercise plan.</p>`
+},
+{
+    title: 'Fire Cupping and Manual Therapies',
+    description: `<p>Our physical therapist uses fire cupping, a traditional Chinese medicine technique, that places heated glass cups onto the skin to create a vacuum. This relaxes your muscle tissue, promtes relaxation, improves circulation, and reduces pain and scar tissue. Depending on the issue being addressed, he may incorporate instrument-assisted soft tissue mobilization, stretching, joint mobilization, or dry needling.</p>`
+},
+{
+title: 'Reiki',
+    description: `<p>Reiki is a Japanese form of energy healing where the practitioner places their hands on or just above the person's body to guide energy and promote healing. It is a relaxing therapy that may help you regain a sense of calmness and support your mental and physical healing.</p>`
 },
 {
     title: 'Yoga Classes',
@@ -22,7 +48,7 @@ const services = [
 },
 { 
     title: 'Herbs / Wellness Services',
-    description: `<p>We also offer a rotating group of other wellness services that at times include Yoga Classes, Tai Chi classes, Meditation, Exercise / Training Classes, Physical Therapy, whatever we find that benefits our patients. We offer a large range of Chinese Herbal Medicine and natural health products available through <a href="https://store.yinyanghouse.com/">our online store</a>.</p>`
+    description: `<p>We also offer a rotating group of other wellness services that at times include Exercise Classes, Tai Chi classes, Meditation, Sound Healing, whatever we find that benefits our patients. We offer a large range of Chinese Herbal Medicine and natural health products available through <a href="https://store.yinyanghouse.com/">our online store</a>.</p>`
 },
 ];
 ---

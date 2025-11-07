@@ -10,6 +10,9 @@ slug: reflexology-2025-11-10
 author: "Abby"
 # SEO Data (always changed)
 description: "Reflexology Now Offered at Yin Yang House"
+# IMAGES
+coverimage: "/reflexology.webp"
+coveralt: "reflexology picture"
 # keywords can be added with commas in between
 # first 3 should stay 
 keywords: ["yin yang house chattanooga", "chattanooga events", "wellness events", "massage therapy", "massage", "stress relief", "pain relief", "reflexology", "foot pain", "foot massage"]
